@@ -1,0 +1,18 @@
+{% extends 'usercv/base.html' %}
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block content %}
+<div class="content-section">
+<div class="row">
+<div class="col-sm-3">
+    <div class="media">
+    <img class="rounded-circle account-img" src="{{ prof.image.url }}" alt="">
+  </div>
+    <p><a href="{% url 'usercv:user-profile' %}"> {{ user.username }}</a></p>
+        <p>{{ user.email }}</p>
+        <p>{{ prof.bio }}</p>
+        <p><a class="btn btn-secondary btn-sn mt-1" href="{% url 'usercv:profile-update' %}">Update</a></p>
+  </div>
+</div>
+</div>
+{% endblock %}
