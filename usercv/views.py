@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView
-from .models import Profile
+from django.views.generic import UpdateView
+from .models import Profile, About
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import UserForm
 from django.contrib.auth import authenticate, login
@@ -11,9 +11,22 @@ def index(request):
     return render(request, 'usercv/index.html')
 
 
-class ProfileCreateView(LoginRequiredMixin, CreateView):
+class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     model = Profile
-    fields = '__all__'
+    fields = ['image', 'phone', 'email', 'dob', 'website', 'address', 'city']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
+class AboutUpdateView(LoginRequiredMixin, UpdateView):
+    model = About
+    fields = ['title', 'description']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 def signup(request):
@@ -34,7 +47,12 @@ def signup(request):
 
 def user_profile(request):
     prof = Profile.objects.get(user=request.user)
-    return render(request, 'usercv/user_profile.html', {'prof': prof})
+    about = About.objects.get(user=request.user)
+    return render(request, 'usercv/user_profile.html', {'about': about, 'prof': prof})
+
+
+
+
 
 
 

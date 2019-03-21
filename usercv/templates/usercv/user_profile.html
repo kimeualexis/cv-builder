@@ -2,17 +2,30 @@
 {% block title %}{{ user.username }}{% endblock %}
 
 {% block content %}
-<div class="content-section">
 <div class="row">
 <div class="col-sm-3">
+    <div class="content-section">
+        <h4 class="text-info">Profile</h4><hr>
     <div class="media">
     <img class="rounded-circle account-img" src="{{ prof.image.url }}" alt="">
   </div>
-    <p><a href="{% url 'usercv:user-profile' %}"> {{ user.username }}</a></p>
         <p>{{ user.email }}</p>
         <p>{{ prof.bio }}</p>
-        <p><a class="btn btn-secondary btn-sn mt-1" href="{% url 'usercv:profile-update' %}">Update</a></p>
+        <p><a class="btn btn-secondary btn-sn mt-1" href="{% url 'usercv:profile-update'  user.id%}">Update</a></p>
   </div>
 </div>
+
+<div class="col-sm-3">
+    <div class="content-section">
+<h4 class="text-info">About</h4><hr>
+        {% if about %}
+        <p>{{ about.title }}</p>
+        <p>{{ about.description }}</p>
+        {% endif %}
+        <p><a class="btn btn-secondary btn-sn mt-1" href="{% url 'usercv:about-update' user.id %}">Update</a></p>
+
+  </div>
+</div>
+
 </div>
 {% endblock %}

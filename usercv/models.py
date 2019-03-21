@@ -1,10 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
+from django.shortcuts import reverse
 
 
 # Create your models here.
 class Cv(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -17,7 +19,7 @@ class Cv(models.Model):
 
 
 class Profile(Cv):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    #user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.png', upload_to='profile_pics')
     phone = models.CharField(max_length=20)
     email = models.EmailField()
@@ -25,6 +27,9 @@ class Profile(Cv):
     website = models.URLField(null=True)
     address = models.CharField(max_length=20)
     city = models.CharField(max_length=20)
+
+    def get_absolute_url(self):
+        return reverse('usercv:user-profile')
 
     def __str__(self):
         return f'{self.user.username} Profile'
@@ -43,9 +48,18 @@ class Profile(Cv):
 class About(Cv):
     description = models.TextField()
 
+    def get_absolute_url(self):
+        return reverse('usercv:user-profile')
+
+    def save(self, force_insert=False, force_update=False, using=None, *args, **kwargs):
+        super().save(*args, **kwargs)
+
 
 class Career(Cv):
     description = models.TextField()
+
+    def get_absolute_url(self):
+        return reverse('usercv:user-profile')
 
 
 class Education(Cv):
@@ -53,6 +67,9 @@ class Education(Cv):
     start = models.DateField()
     end = models.DateField()
     description = models.TextField()
+
+    def get_absolute_url(self):
+        return reverse('usercv:user-profile')
 
 
 class Course(Cv):
@@ -62,6 +79,9 @@ class Course(Cv):
     school = models.CharField(max_length=40)
     description = models.TextField()
 
+    def get_absolute_url(self):
+        return reverse('usercv:user-profile')
+
 
 class Experience(Cv):
     position = models.CharField(max_length=45)
@@ -70,6 +90,9 @@ class Experience(Cv):
     end = models.DateField()
     description = models.TextField()
 
+    def get_absolute_url(self):
+        return reverse('usercv:user-profile')
+
 
 class Portfolio(Cv):
     name = models.CharField(max_length=30)
@@ -77,20 +100,32 @@ class Portfolio(Cv):
     link = models.URLField()
     cover = models.FileField()
 
+    def get_absolute_url(self):
+        return reverse('usercv:user-profile')
+
 
 class Skill(Cv):
     name = models.CharField(max_length=30)
     description = models.TextField()
     level = models.PositiveIntegerField()
 
+    def get_absolute_url(self):
+        return reverse('usercv:user-profile')
+
 
 class Hobby(Cv):
     name = models.CharField(max_length=50)
+
+    def get_absolute_url(self):
+        return reverse('usercv:user-profile')
 
 
 class Language(Cv):
     name = models.CharField(max_length=30)
     level = models.TextField()
+
+    def get_absolute_url(self):
+        return reverse('usercv:user-profile')
 
 
 class Cocurricular(Cv):
@@ -100,6 +135,9 @@ class Cocurricular(Cv):
     end = models.DateField()
     description = models.TextField()
 
+    def get_absolute_url(self):
+        return reverse('usercv:user-profile')
+
 
 class Reference(Cv):
     name = models.CharField(max_length=50)
@@ -107,6 +145,9 @@ class Reference(Cv):
     company = models.CharField(max_length=55)
     phone = models.CharField(max_length=20)
     email = models.EmailField()
+
+    def get_absolute_url(self):
+        return reverse('usercv:user-profile')
 
 
 
