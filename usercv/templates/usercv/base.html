@@ -10,7 +10,7 @@
 <body>
 <div class="container-fluid">
    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="{% url 'usercv:cv-index' %}" style="color: steelblue;"><i class="fas fa-user"></i> CVs</a>
+  <a class="navbar-brand" href="{% url 'usercv:cv-index' %}" style="color: steelblue;"><i class="fas fa-user"></i> CV Builder</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -27,7 +27,7 @@
 
       <ul class="navbar-nav navbar-right">
       <li class="nav-item">
-          <a class="nav-link" href=""><i class="fas fa-plus"></i>&nbsp;Create CV</a>
+          <a class="nav-link" href="{% url 'usercv:create-cv' %}"><i class="fas fa-plus"></i>&nbsp;Create CV</a>
       </li>
 
           {% if user.is_authenticated %}

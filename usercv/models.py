@@ -6,8 +6,7 @@ from django.shortcuts import reverse
 
 # Create your models here.
 class Cv(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=50, default='Section Title')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -19,7 +18,7 @@ class Cv(models.Model):
 
 
 class Profile(Cv):
-    #user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.png', upload_to='profile_pics')
     phone = models.CharField(max_length=20)
     email = models.EmailField()
@@ -46,7 +45,8 @@ class Profile(Cv):
 
 
 class About(Cv):
-    description = models.TextField()
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    description = models.TextField(default='Section Description')
 
     def get_absolute_url(self):
         return reverse('usercv:user-profile')
@@ -56,6 +56,7 @@ class About(Cv):
 
 
 class Career(Cv):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.TextField()
 
     def get_absolute_url(self):
@@ -63,19 +64,24 @@ class Career(Cv):
 
 
 class Education(Cv):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     school = models.CharField(max_length=70)
-    start = models.DateField()
-    end = models.DateField()
+    start = models.DateField(null=True)
+    end = models.DateField(null=True)
     description = models.TextField()
 
     def get_absolute_url(self):
         return reverse('usercv:user-profile')
 
+    def save(self, force_insert=False, force_update=False, using=None, *args, **kwargs):
+        super().save(*args, **kwargs)
+
 
 class Course(Cv):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
-    start = models.DateField()
-    end = models.DateField()
+    start = models.DateField(null=True)
+    end = models.DateField(null=True)
     school = models.CharField(max_length=40)
     description = models.TextField()
 
@@ -84,10 +90,11 @@ class Course(Cv):
 
 
 class Experience(Cv):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     position = models.CharField(max_length=45)
     company = models.CharField(max_length=45)
-    start = models.DateField()
-    end = models.DateField()
+    start = models.DateField(null=True)
+    end = models.DateField(null=True)
     description = models.TextField()
 
     def get_absolute_url(self):
@@ -95,6 +102,7 @@ class Experience(Cv):
 
 
 class Portfolio(Cv):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
     description = models.TextField()
     link = models.URLField()
@@ -105,15 +113,17 @@ class Portfolio(Cv):
 
 
 class Skill(Cv):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
     description = models.TextField()
-    level = models.PositiveIntegerField()
+    level = models.PositiveIntegerField(default=10)
 
     def get_absolute_url(self):
         return reverse('usercv:user-profile')
 
 
 class Hobby(Cv):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
 
     def get_absolute_url(self):
@@ -121,6 +131,7 @@ class Hobby(Cv):
 
 
 class Language(Cv):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
     level = models.TextField()
 
@@ -129,10 +140,11 @@ class Language(Cv):
 
 
 class Cocurricular(Cv):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     activity = models.CharField(max_length=30)
     company = models.CharField(max_length=30)
-    start = models.DateField()
-    end = models.DateField()
+    start = models.DateField(null=True)
+    end = models.DateField(null=True)
     description = models.TextField()
 
     def get_absolute_url(self):
@@ -140,6 +152,7 @@ class Cocurricular(Cv):
 
 
 class Reference(Cv):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     position = models.CharField(max_length=40)
     company = models.CharField(max_length=55)

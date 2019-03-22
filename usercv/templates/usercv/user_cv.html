@@ -1,0 +1,195 @@
+{% extends 'usercv/base.html' %}
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block content %}
+
+    <br>
+    <div class="row">
+
+        <div class="col-sm-4">
+    <div class="content-section">
+<h4 class="text-info">About</h4><hr>
+        {% if abouts %}
+            {% for about in abouts %}
+                <h4>{{ about.title }}</h4>
+                <p>{{ about.description }}</p>
+            {% endfor %}
+        {% endif %}
+        <a class="btn btn-info btn-sn mt-1" href="{% url 'usercv:about-create' %}"><i class="fas fa-plus-circle"></i> </a>
+        <a class="btn btn-secondary btn-sn mt-1" href=""><i class="fas fa-info"></i> </a>
+
+  </div>
+</div>
+
+<div class="col-sm-4">
+    <div class="content-section">
+<h4 class="text-info">Education</h4><hr>
+        {% if educations %}
+            {% for education in educations %}
+                <h4>{{ education.title }}</h4>
+                <h5>{{ education.school }}</h5>
+                <p>{{ education.description }}</p>
+                <p><small>From:&nbsp;{{ education.start }}</small><small style="float:right;">To:&nbsp;{{ education.end }}</small></p>
+            {% endfor %}
+        {% endif %}
+        <a class="btn btn-info btn-sn mt-1" href="{% url 'usercv:education-create' %}"><i class="fas fa-plus-circle"></i> </a>
+        <a class="btn btn-secondary btn-sn mt-1" href=""><i class="fas fa-info"></i> </a>
+  </div>
+</div>
+
+<div class="col-sm-4">
+    <div class="content-section">
+<h4 class="text-info">Career</h4><hr>
+        {% if careers %}
+            {% for career in careers %}
+                <h4>{{ career.title }}</h4>
+                <p>{{ career.description }}</p>
+            {% endfor %}
+        {% endif %}
+        <a class="btn btn-info btn-sn mt-1" href="{% url 'usercv:career-create' %}"><i class="fas fa-plus-circle"></i> </a>
+        <a class="btn btn-secondary btn-sn mt-1" href=""><i class="fas fa-info"></i> </a>
+  </div>
+</div>
+    </div>
+
+
+    <div class="row">
+<div class="col-sm-4">
+    <div class="content-section">
+<h4 class="text-info">Course</h4><hr>
+        {% if courses %}
+            {% for course in courses %}
+                <h4>{{ course.title }}</h4>
+                <h5>{{ course.school }}</h5>
+                <P>{{ course.description }}</P>
+                <p><small>From:&nbsp;{{ course.start }}</small><small style="float:right;">To:&nbsp;{{ course.end }}</small></p>
+            {% endfor %}
+        {% endif %}
+      <a class="btn btn-info btn-sn mt-1" href="{% url 'usercv:course-create' %}"><i class="fas fa-plus-circle"></i> </a>
+        <a class="btn btn-secondary btn-sn mt-1" href=""><i class="fas fa-info"></i> </a>
+  </div>
+</div>
+
+<div class="col-sm-4">
+    <div class="content-section">
+<h4 class="text-info">Experience</h4><hr>
+        {% if experiences %}
+            {% for experience in experiences %}
+                <h4>{{ experience.title }}</h4>
+                <h5>{{ experience.company }}</h5>
+                <p>{{ experience.description }}</p>
+                <p><small>From:&nbsp;{{ experience.start }}</small><small style="float:right;">To:&nbsp;{{ experience.end }}</small></p>
+            {% endfor %}
+        {% endif %}
+        <a class="btn btn-info btn-sn mt-1" href="{% url 'usercv:experience-create' %}"><i class="fas fa-plus-circle"></i> </a>
+        <a class="btn btn-secondary btn-sn mt-1" href=""><i class="fas fa-info"></i> </a>
+
+  </div>
+</div>
+
+<div class="col-sm-4">
+    <div class="content-section">
+<h4 class="text-info">Portfolio</h4><hr>
+        {% if portfolios %}
+            {% for portfolio in portfolios %}
+                <h4>{{ portfolio.name }}</h4>
+                <p>{{ portfolio.description }}</p>
+                <p><a href="{{ portfolio.link }}"> {{ portfolio.link }}</a></p>
+            {% endfor %}
+        {% endif %}
+        <a class="btn btn-info btn-sn mt-1" href="{% url 'usercv:portfolio-create' %}"><i class="fas fa-plus-circle"></i> </a>
+        <a class="btn btn-secondary btn-sn mt-1" href=""><i class="fas fa-info"></i> </a>
+
+  </div>
+</div>
+    </div>
+
+
+    <div class="row">
+<div class="col-sm-4">
+    <div class="content-section">
+<h4 class="text-info">Skills</h4><hr>
+        {% if skills %}
+            {% for skill in  skills %}
+                <h4>{{ skill.name }}</h4>
+                <p>{{skill.description }}</p>
+                <p><small>Level:&nbsp;{{ skill.level }}</small></p>
+            {% endfor %}
+
+        {% endif %}
+        <a class="btn btn-info btn-sn mt-1" href="{% url 'usercv:skill-create' %}"><i class="fas fa-plus-circle"></i> </a>
+        <a class="btn btn-secondary btn-sn mt-1" href=""><i class="fas fa-info"></i> </a>
+  </div>
+</div>
+
+
+    <div class="col-sm-4">
+    <div class="content-section">
+<h4 class="text-info">Hobbies</h4><hr>
+        {% if hobbies %}
+            {% for hobby in hobbies %}
+                <p>{{ hobby.name }}</p>
+            {% endfor %}
+        {% endif %}
+        <a class="btn btn-info btn-sn mt-1" href="{% url 'usercv:hobby-create' %}"><i class="fas fa-plus-circle"></i> </a>
+        <a class="btn btn-secondary btn-sn mt-1" href=""><i class="fas fa-info"></i> </a>
+
+  </div>
+</div>
+
+    <div class="col-sm-4">
+    <div class="content-section">
+<h4 class="text-info">Language</h4><hr>
+        {% if languages %}
+            <table class="table">
+            {% for language in languages %}
+                <tr>
+                <td>{{ language.name }}</td><td>{{ language.level }}</td>
+                </tr>
+            {% endfor %}
+            </table>
+        {% endif %}
+        <a class="btn btn-info btn-sn mt-1" href="{% url 'usercv:language-create' %}"><i class="fas fa-plus-circle"></i> </a>
+        <a class="btn btn-secondary btn-sn mt-1" href=""><i class="fas fa-info"></i> </a>
+
+  </div>
+</div>
+    </div>
+
+    <div class="row">
+    <div class="col-sm-4">
+    <div class="content-section">
+<h4 class="text-info">Co-Curricular</h4><hr>
+        {% if cocurriculars %}
+            {% for co in cocurriculars %}
+                <h4>{{ co.company }}</h4>
+                <h5>{{ co.activity }}</h5>
+                <p>{{ co.description }}</p>
+                <p><small>From:&nbsp;{{ co.start }}</small><small style="float:right;">To:&nbsp;{{ co.end }}</small></p>
+            {% endfor %}
+        {% endif %}
+        <a class="btn btn-info btn-sn mt-1" href="{% url 'usercv:cocurricular-create' %}"><i class="fas fa-plus-circle"></i> </a>
+        <a class="btn btn-secondary btn-sn mt-1" href=""><i class="fas fa-info"></i> </a>
+
+  </div>
+</div>
+
+    <div class="col-sm-4">
+    <div class="content-section">
+<h4 class="text-info">References</h4><hr>
+        {% if references %}
+            {% for referee in references %}
+                <p>{{ referee.name }}</p>
+                <p>{{ referee.position }}</p>
+                <p>{{ referee.company }}</p>
+                <p>{{ referee.email }}</p>
+                <p>{{ referee.phone }}</p>
+            {% endfor %}
+        {% endif %}
+        <a class="btn btn-info btn-sn mt-1" href="{% url 'usercv:reference-create' %}"><i class="fas fa-plus-circle"></i> </a>
+        <a class="btn btn-secondary btn-sn mt-1" href=""><i class="fas fa-info"></i> </a>
+
+  </div>
+</div>
+    </div>
+{% endblock %}
